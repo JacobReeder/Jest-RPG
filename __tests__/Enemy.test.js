@@ -14,30 +14,19 @@ test('creates an enemy object', () => {
   expect(enemy.potion).toEqual(expect.any(Object));
 });
 
-test("gets player's stats as an object", () => {
+  test("gets enemy's health value", () => {
     const enemy = new Enemy('goblin', 'sword');
 
-    expect(enemy.getStats()).toHaveProperty('potions');
-    expect(enemy.getStats()).toHaveProperty('health');
-    expect(enemy.getStats()).toHaveProperty('strength');
-    expect(enemy.getStats()).toHaveProperty('agility');
-  });
-
-  test('gets inventory from player or returns false', () => {
-    const enemy = new Enemy('goblin', 'sword');
-
-    expect(enemy.getInventory()).toEqual(expect.any(Array));
-
-    enemy.inventory = [];
-
-    expect(enemy.getInventory()).toEqual(false);
-  });
-
-  test("gets player's health value", () => {
-    const enemy = new Enemy('goblin', 'sword');
      expect(enemy.getHealth()).toEqual(expect.stringContaining(enemy.health.toString()));
 
-  });
+});
+
+test('gets a description of the enemy', () => {
+    const enemy = new Enemy('goblin', 'sword');
+  
+    expect(enemy.getDescription()).toEqual(expect.stringContaining('goblin'));
+    expect(enemy.getDescription()).toEqual(expect.stringContaining('sword'));
+});
 
   test('checks if player is alive or not', () => {
     const enemy = new Enemy('goblin', 'sword');
@@ -47,15 +36,14 @@ test("gets player's stats as an object", () => {
     enemy.health = 0;
 
     expect(enemy.isAlive()).toBeFalsy();
-  });
+});
 
-  test('adds a potion to the inventory', () => {
+test("gets player's attack value", () => {
     const enemy = new Enemy('goblin', 'sword');
-    const oldCount = enemy.inventory.length;
 
-    enemy.addPotion(new Potion());
-    expect(enemy.inventory.length).toBeGreaterThan(oldCount);
-  });
+    expect(enemy.getAttackValue()).toBeGreaterThanOrEqual(5);
+    expect(enemy.getAttackValue()).toBeLessThanOrEqual(15);
+});
 
   test("subtracts from player's health", () => {
     const enemy = new Enemy('goblin', 'sword');
@@ -68,28 +56,8 @@ test("gets player's stats as an object", () => {
     enemy.reduceHealth(99999);
 
     expect(enemy.health).toBe(0);
-  });
+});
 
-  /*test("gets player's attack value", () => {
-    const enemy = new Enemy('goblin', 'sword');
+ 
 
-    expect(enemy.getAttackValue()).toBeGreaterThanOrEqual(5);
-    expect(enemy.getAttackValue()).toBeLessThanOrEqual(15);
-  });
-
-  test('uses a potion from inventory', () => {
-    const enemy = new Enemy('goblin', 'sword');
-    enemy.inventory = [new Potion(), new Potion(), new Potion()];
-    const oldCount = enemy.inventory.length;
-
-    enemy.usePotion(1);
-
-    expect(enemy.inventory.length).toBeLessThan(oldCount);
-  });*/
-
-  test('gets a description of the enemy', () => {
-    const enemy = new Enemy('goblin', 'sword');
-  
-    expect(enemy.getDescription()).toEqual(expect.stringContaining('goblin'));
-    expect(enemy.getDescription()).toEqual(expect.stringContaining('sword'));
-  });
+ 
