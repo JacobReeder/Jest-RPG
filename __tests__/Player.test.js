@@ -10,6 +10,8 @@ test('creates a player object', () => {
     expect(player.health).toEqual(expect.any(Number));
     expect(player.strength).toEqual(expect.any(Number));
     expect(player.agility).toEqual(expect.any(Number));
+
+    expect(player.inventory).toEqual(expect.arrayContaining([expect.any(Object)]));
   });
 
   test("gets player's stats as an object", () => {
@@ -70,7 +72,7 @@ test('creates a player object', () => {
 
   test("gets player's attack value", () => {
     const player = new Player('Dave');
-
+    player.strength = 10;
     expect(player.getAttackValue()).toBeGreaterThanOrEqual(5);
     expect(player.getAttackValue()).toBeLessThanOrEqual(15);
   });
